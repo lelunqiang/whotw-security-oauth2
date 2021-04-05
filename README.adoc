@@ -1,0 +1,37 @@
+== 本人推荐oauth2学习指南
+
+* https://alexbilbie.com/guide-to-oauth-2-grants/[oauth2基本常识]
+* https://github.com/jgrandja/spring-security-oauth-2-4-migrate[oauth2简单项目]
+* https://projects.spring.io/spring-security-oauth/docs/oauth2.html[oauth2更多详情,结合百度学习]
+* https://spring.io/guides/tutorials/spring-boot-oauth2/[基于oauth2-github登录]
+
+== 官方描述实例
+=== Spring Security OAuth 2.4 Migration Sample
+
+This sample should be used for migrating a Spring Security OAuth 2.x application to Spring Security 5.2.
+
+This is the Spring Security OAuth 2.4 sample and the corresponding Spring Security 5.2 sample is https://github.com/jgrandja/spring-security-oauth-5-2-migrate[here].
+
+See the https://github.com/spring-projects/spring-security/wiki/OAuth-2.0-Migration-Guide[OAuth 2.0 Migration Guide] for further details.
+
+=== Run the Sample
+
+* Build the sample -> `./mvnw clean package`
+* Run Authorization Server -> `./mvnw -f auth-server spring-boot:run`
+** IMPORTANT: Make sure to modify your `/etc/hosts` file to avoid problems with session cookie overwrites between `client-app` and `auth-server`. Simply add the entry `127.0.0.1	auth-server`
+* Run Resource Server -> `./mvnw -f resource-server spring-boot:run`
+* Run Client App -> `./mvnw -f client-app spring-boot:run`
+* Go to `http://localhost:8080` and login using *user1/password*
+
+=== 运行项目（白话翻译）
+
+* 构建项目 `mvn clean package`
+* 运行授权服务 `mvn -f auth-server spring-boot:run`
+* hosts 文件增加如下内容 `127.0.0.1	auth-server` 因为client-app yml配置文件里面有http://auth-server,懂了嘛老铁们
+* 运行资源服务 `mvn -f resource-server spring-boot:run`
+* 运行客户端服务 `mvn -f client-app spring-boot:run`
+* 浏览器输入 `http://localhost:8080` 用户名/密码为 -> *user1/password*
+
+== 基于官方实例源代码新增的一些内容
+
+更新中。。。
