@@ -51,6 +51,10 @@ public class AuthorizationController {
 
 	@GetMapping(value = "/authorize", params = "grant_type=authorization_code")
 	public String authorization_code_grant(Model model) {
+		//由于构建的是oauth2RestTemplate,请求默认会先经过授权服务，
+		// 经过授权服务时，如果未登录，弹出的是授权服务默认的oauth2登录界面，而不是login.html
+		//用户成功授权后,通过授权服务重定向回该接口[查看授权服务的AuthorizationServerConfig可知.redirectUris("http://localhost:8080/authorized");]
+		//执行如下业务【调用资源服务接口】
 		String[] messages = this.messagingClientAuthCodeRestTemplate.getForObject(this.messagesBaseUri, String[].class);
 		model.addAttribute("messages", messages);
 		return "index";

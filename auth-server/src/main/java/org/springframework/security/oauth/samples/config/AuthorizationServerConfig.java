@@ -62,14 +62,13 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		// @formatter:off
+		//设置client,client-app 中yml文件中配置的clientId和clientSecret即为此处的client
 		clients.inMemory()
 			.withClient("messaging-client")
 				.authorizedGrantTypes("authorization_code", "refresh_token", "client_credentials", "password")
 				.scopes("message.read", "message.write")
 				.secret("{noop}secret")
 				.redirectUris("http://localhost:8080/authorized");
-		// @formatter:on
 	}
 
 	@Override
@@ -100,10 +99,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 	@Bean
 	public JwtAccessTokenConverter accessTokenConverter() {
 		final RsaSigner signer = new RsaSigner(KeyConfig.getSignerKey());
-
 		JwtAccessTokenConverter converter = new JwtAccessTokenConverter() {
 			private JsonParser objectMapper = JsonParserFactory.create();
-
 			@Override
 			protected String encode(OAuth2AccessToken accessToken, OAuth2Authentication authentication) {
 				String content;
@@ -115,6 +112,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 				Map<String, String> headers = new HashMap<>();
 				headers.put("kid", KeyConfig.VERIFIER_KEY_ID);
 				String token = JwtHelper.encode(content, signer, headers).getEncoded();
+				//验证jwtToken https://jwt.io/
+				System.out.println(token);
 				return token;
 			}
 		};

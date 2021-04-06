@@ -44,6 +44,7 @@ class KeyConfig {
 	}
 
 	private static KeyPair getKeyPair() {
+		//生成秘钥对 privateKey-publicKey
 		return KEY_STORE_KEY_FACTORY.getKeyPair(KEY_ALIAS);
 	}
 }
